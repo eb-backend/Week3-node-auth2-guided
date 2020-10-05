@@ -92,7 +92,6 @@ async function addUser(user) {
 }
 
 function addClient(client) {
-  console
   return db('clients')
     .insert(client)
     .returning('id')
