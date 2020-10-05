@@ -86,6 +86,7 @@ async function addUser(user) {
     const [id] = await db("users").insert(user, "id");
     return findById(id);
   } catch (error) {
+    console.log("New Update Added here")
     console.log("user-->", user)
     console.log(error.stack)
   }
@@ -94,8 +95,8 @@ async function addUser(user) {
 function addClient(client) {
   return db('clients')
     .insert(client)
-    .returning('id')
-    // .returning('id','client_name')
+    // .returning('id')
+    .returning('id','client_name')
     // .then(ids => ({ id: ids[0] }));
 }
 
