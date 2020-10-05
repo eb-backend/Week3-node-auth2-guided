@@ -87,17 +87,51 @@ async function addUser(user) {
 
     return findById(id);
   } catch (error) {
-    throw error;
+    console.log(error.stack)
   }
 }
 
-
 function addClient(client) {
-  console.log("CLIENTSS-->", client)
   return db('clients')
     .insert(client)
+    .returning('id','client_name')
     .then(ids => ({ id: ids[0] }));
 }
+
+
+// async function addClient(client) {
+//   console.log("CLIENTSS-->", client)
+//   const id= await db('clients')
+//     .insert(client)
+//     .returning('id')
+//     return id
+//     // .then(ids => ({ id: ids[0] }));
+// }
+
+
+
+
+
+
+
+// async function addClient(client) {
+//   try{
+//     console.log("CLIENTSS-->", client)
+//     await db('clients')
+//     .returning('id')
+//       .insert(client)
+//   }catch(err){
+//     console.log(err.stack)
+//   }
+
+
+
+  // console.log("CLIENTSS-->", client)
+  // await db('clients')
+  // .returning('id')
+  //   .insert(client)
+    // .then(ids => ({ id: ids[0] }));
+// }
 
 
 function update(id, changes) {

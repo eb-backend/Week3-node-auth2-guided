@@ -4,17 +4,18 @@ const db = require("../database/connection.js");
 const Users = require("./users-model.js");
 const {restrict} = require("../auth/restricted-middleware.js");
 
-router.get("/", (req, res) => {
-  Users.find()
-    .then(users => {
-      res.status(200).json(users);
-    })
-    .catch(err => res.send(err));
+router.get("/", async(req, res, next) => {
+  try{
+    const users= await Users.find()
+    res.status(200).json(users);
+    console.log("WHY IS THIS NOT LOGGING IN")
+  }catch(err){
+    next(err)
+  }
 });
 
 router.get("/user/:id", async(req,res,next)=>{
   const {id}=req.params
-  // res.status(200).json({message:"hoorai"})
   try{
 const user= await Users.fetchByID(id)
 
@@ -25,33 +26,33 @@ res.json(user)
 })
 
 
-router.put('/user/:id', restrict("admin"), (req, res) => {
+router.put('/user/:id', restrict("admin"), async(req, res, next) => {
   // do your magic!
-  // console.log("req-->", req) //<--really long details
-  Users.update(req.params.id, req.body)
-  .then((user)=>{
-    if(user){
-      res.status(200).json(user)
-    }else{
-      res.status(404).json({message: "the user could not be found"})
-    }
-  })
-  .catch(err=>next(next))
+  try{
+    const user = await   Users.update(req.params.id, req.body)
+    res.status(200).json(user)
+
+
+  }catch(err){
+    next(err)
+    res.status(404).json({message: "the user could not be found"})
+  }
+
 });
 
 
 //ALL THE POSTS FROM USER #1
-router.post('/:id/posts', restrict("admin"), (req, res) => {
+router.post('/:id/posts', restrict("admin"), async (req, res, next) => {
   // do your magic!
-  const postInfo = { ...req.body, user_id: req.params.id };
+  console.log("POST", req.body)
 
-  Users.addClient(postInfo)
+  try{
 
-  .then(post => {
-    console.log("POST->", post)
+    console.log("req body", req.body)
+    const postInfo = { ...req.body, user_id: req.params.id };
+    const post = await Users.addClient(postInfo)
     res.status(210).json(post);
-  })
-  .catch(err=>next(err));
+  }catch(err){next(err)}
 });
 
 router.get('/:id/posts', async(req, res, next) => {
