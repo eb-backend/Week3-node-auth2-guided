@@ -92,16 +92,18 @@ async function addUser(user) {
 }
 
 function addClient(client) {
+  console
   return db('clients')
     .insert(client)
-    .returning('id','client_name')
-    .then(ids => ({ id: ids[0] }));
+    .returning('id')
+    // .returning('id','client_name')
+    // .then(ids => ({ id: ids[0] }));
 }
 
 
 // async function addClient(client) {
 //   console.log("CLIENTSS-->", client)
-//   const id= await db('clients')
+//   const id= await db('clients', id)
 //     .insert(client)
 //     .returning('id')
 //     return id
