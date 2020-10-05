@@ -84,9 +84,9 @@ function fetchClientPostByID(clientID, usr_id){
 async function addUser(user) {
   try {
     const [id] = await db("users").insert(user, "id");
-
     return findById(id);
   } catch (error) {
+    console.log("user-->", user)
     console.log(error.stack)
   }
 }
@@ -147,6 +147,7 @@ function updateClients(id, changes) {
 }
 
 function findById(id) {
+  console.log("ID-->", id)
   return db("users").where({ id }).first();
 }
 
