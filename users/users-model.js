@@ -13,6 +13,8 @@ module.exports = {
   update,
   updateClients,
   removeClient,
+  findStylistClientById,
+  addStylistClient
 
 };
 
@@ -40,6 +42,7 @@ function getById(userID){
   .where("u.id", userID)
 }
 
+//find user by id
 function fetchByID(userID){
   return db("users as u")
   .select(
@@ -68,7 +71,7 @@ function fetchClientByID(clientID){
   .where("c.user_id", clientID) //take all the posts with this user's id
 }
 
-function fetchClientPostByID(clientID, usr_id){
+function fetchClientPostByID(clientID){
   return db("clients as c")
   .select(
     "c.id as client_id",
@@ -77,8 +80,9 @@ function fetchClientPostByID(clientID, usr_id){
     "c.service",
     "c.client_ImgUrl"
   )
-  .where("c.id", clientID, "c.client_name") 
+  .where("client_id", clientID) 
 }
+
 
 
 async function addUser(user) {
@@ -96,9 +100,9 @@ async function addUser(user) {
 function addClient(client) {
   return db('clients')
     .insert(client)
-    .returning('id')
+    // .returning('id')
     // .returning('id','client_name')
-    // .then(ids => ({ id: ids[0] }));
+    .then(ids => ({ id: ids[0] }));
 }
 
 // function addClient(client) {
@@ -169,3 +173,31 @@ function removeClient(id, changes) {
     .where({ id })
     .delete(changes);
 }
+
+
+
+function findStylistClientById(userId, id){
+  return db("clients")
+  .where({id, user_id:userId})
+  .first()
+}
+
+async function addStylistClient(userId, client){
+  const data = {user_id:userId, ...client}
+  const [id]= await db("clients"). insert(data,"id")
+  console.log("IDEE->", id)
+  return findStylistClientById(userId, id)
+}
+
+
+// async function addUser(user) {
+//   try {
+//     const [id] = await db("users").insert(user, "id");
+//     return findById(id);
+//   } catch (error) {
+//     console.log("New Update Added here")
+//     console.log("SOMEONE HELP!")
+//     console.log("user-->", user)
+//     console.log(error.stack)
+//   }
+// }
