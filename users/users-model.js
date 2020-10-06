@@ -87,6 +87,7 @@ async function addUser(user) {
     return findById(id);
   } catch (error) {
     console.log("New Update Added here")
+    console.log("SOMEONE HELP!")
     console.log("user-->", user)
     console.log(error.stack)
   }
@@ -95,11 +96,14 @@ async function addUser(user) {
 function addClient(client) {
   return db('clients')
     .insert(client)
-    // .returning('id')
-    .returning('id','client_name')
+    .returning('id')
+    // .returning('id','client_name')
     // .then(ids => ({ id: ids[0] }));
 }
 
+// function addClient(client) {
+//   return db('clients').insert(client).then(ids => ({ id: ids[0] }));
+// }
 
 // async function addClient(client) {
 //   console.log("CLIENTSS-->", client)
@@ -123,16 +127,17 @@ function addClient(client) {
 //     .returning('id')
 //       .insert(client)
 //   }catch(err){
+//     console.log("CLIENT--->", client)
 //     console.log(err.stack)
 //   }
 
 
 
-  // console.log("CLIENTSS-->", client)
-  // await db('clients')
-  // .returning('id')
-  //   .insert(client)
-    // .then(ids => ({ id: ids[0] }));
+//   // console.log("CLIENTSS-->", client)
+//   // await db('clients')
+//   // .returning('id')
+//   //   .insert(client)
+//   //   .then(ids => ({ id: ids[0] }));
 // }
 
 
