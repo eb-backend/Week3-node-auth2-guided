@@ -2,7 +2,7 @@
 
 Hair Care is the online destination for beauty & wellness professionals and clients. Professionals can showcase their work, connect with new and existing clients, and build their business. Clients can discover new services and providers, book appointments online, and get inspired.
 
-[API Documentation](https://docs-haircare-now.vercel.app)
+## [API Documentation](https://docs-haircare-now.vercel.app)
 
 
 ## Technologies used:
