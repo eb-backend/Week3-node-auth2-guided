@@ -1,29 +1,84 @@
-# Node Auth 2 Guided Project
+# Hair Care App
 
-## Take Aways
-* tokens vs sessions, sessions 
-  * sessions --> look up the value - takes longer
-  * tokens can be validated by the server just looking at it, no lookup
-  * drawbacks - jtw not the best solution for authentication
-  * created an env for jwt secret password and incorporated it to user router and middleware
+Hair Care is the online destination for beauty & wellness professionals and clients. Professionals can showcase their work, connect with new and existing clients, and build their business. Clients can discover new services and providers, book appointments online, and get inspired.
 
-Guided project for **Node Auth 2** Module.
-
-## Prerequisites
-
-- [SQLite Studio](https://sqlitestudio.pl/index.rvt?act=download) installed.
-- Optional: PostgreSQL and pgAdmin 4 installed.
-
-## Project Setup
-
-- [ ] fork and clone this repository.
-- [ ] **CD into the folder** where you cloned **your fork**.
-- [ ] type`npm i` to download dependencies.
-- [ ] type `npm run server` to start the API.
-
-Please follow along as the instructor adds support for `JSON Web Tokens (JWT)` to the API.
-
-## Environment Variable 
-JWT_SECRET=""
+[API Documentation](https://docs-haircare-now.vercel.app)
 
 
+## Technologies used:
+
+### General:
+
+NodeJS backend.
+
+ExpressJS framework for the API.
+
+express-session session middleware for managing user state across requests.
+
+### Security
+
+CORS for Cross-Origin configuration.
+helmet for basic security adjustments to the server.
+bcrypt for encrypting/hashing sensitive user data.
+
+### Testing:
+
+jest
+supertest
+Database:
+
+knex as the query builder and interface to postgres
+pg PostgreSQL
+
+## Installation
+
+`$ npm install`
+
+Required environment variables
+
+These are required to get the server working after install:
+
+``
+NODE_ENV - production / development
+
+PORT - For heroku deployment
+
+DATABASE_ENV - testing / developing / production
+
+DATABASE_URL - Production database connection string (used by heroku)
+
+DATABASE_URL_DEV - development database connection string
+
+DATABASE_URL_TEST - testing database connection string
+
+JWT_SECRET - Key for encrypting JWTs``
+
+## Running the server
+
+
+### production mode
+`$ npm run start`
+
+### development mode
+`$ npm run start:dev
+Developing`
+
+### migrate database to latest
+`$ npm run db:latest`
+
+### rollback database migrations
+`$ npm run db:rollback`
+
+### seed the database
+`$ npm run db:seed`
+Testing
+
+### run endpoint tests
+`$ npm run test:e2e`
+
+### test coverage
+`$ npm run test:cov`
+
+License
+
+This project is MIT licensed
