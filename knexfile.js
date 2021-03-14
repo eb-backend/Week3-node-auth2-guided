@@ -45,9 +45,9 @@ module.exports = {
   },
 
   production: {
-    client: "postGres",
+    client: "pg",
     connection: pgConnection,
-    // ssl: { rejectUnauthorized: false },
+    ssl: { rejectUnauthorized: false },
     pool: {
       min: 2,
       max: 10,
